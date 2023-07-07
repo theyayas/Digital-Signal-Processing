@@ -1,0 +1,86 @@
+unit Unit2;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, VclTee.TeeGDIPlus, VCLTee.TeEngine,
+  VCLTee.Series, Vcl.StdCtrls, Vcl.ExtCtrls, VCLTee.TeeProcs, VCLTee.Chart;
+
+type
+  TForm2 = class(TForm)
+    Chart1: TChart;
+    Button1: TButton;
+    Series1: TLineSeries;
+    Series2: TLineSeries;
+    OpenDialog1: TOpenDialog;
+    procedure FormCreate(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form2: TForm2;
+
+implementation
+
+{$R *.dfm}
+
+procedure TForm2.FormCreate(Sender: TObject);
+var
+  {Gait : textfile;
+  N, i, j: integer;
+  Heel, Toe : array[0..10000] of extended;
+  }
+  MyFile: TextFile;
+  s: string;
+  Heel, Toe : array[0..10000] of extended;
+begin
+  {Series1.Clear;
+  opendialog1.Execute();
+  //if opendialog1.Execute then
+  //begin
+       i := 0;
+       assignfile(gait,opendialog1.FileName);
+       reset(gait);
+       while not EOF (gait) do
+       begin
+            i := i + 1;
+            readln(gait, heel[i], toe[i]);
+       end;
+  closefile(gait);
+  N := i;
+  //end;
+  for j := 0 to i do
+  begin
+       Series1.addxy(j,heel[j]);
+       Series2.addxy(j,toe[j]);
+  end; }
+
+  AssignFile(MyFile, 'a.txt');
+
+  try
+    i := 0;
+    reset(MyFile);    //Reopen the file for reading
+    while not EOF (gait) do
+       begin
+            readln(MyFile, heel[i], toe[i]);
+            //writeln('Text read from file: ', s);
+            Series1.addxy(i,heel[i]);
+            Series2.addxy(i,toe[i]);
+       end;
+
+
+    {
+    or add some text:
+    append(MyFile);
+    writeln(MyFile, 'some text');
+    }
+
+  finally
+    CloseFile(MyFile);
+end;
+
+end.

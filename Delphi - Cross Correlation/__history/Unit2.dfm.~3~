@@ -1,0 +1,126 @@
+object Form2: TForm2
+  Left = 195
+  Top = 55
+  Caption = 'Cross Correlation by Yasin'
+  ClientHeight = 394
+  ClientWidth = 1000
+  Color = clTeal
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poDesigned
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Label1: TLabel
+    Left = 376
+    Top = 8
+    Width = 269
+    Height = 32
+    Caption = 'Cross Correlation'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clMaroon
+    Font.Height = -27
+    Font.Name = 'Stencil'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Chart1: TChart
+    Left = 8
+    Top = 49
+    Width = 585
+    Height = 137
+    Title.Font.Color = clMaroon
+    Title.Text.Strings = (
+      'Gait')
+    LeftAxis.Automatic = False
+    LeftAxis.AutomaticMaximum = False
+    LeftAxis.AutomaticMinimum = False
+    LeftAxis.Maximum = 2.500000000000000000
+    View3D = False
+    TabOrder = 0
+    DefaultCanvas = 'TGDIPlusCanvas'
+    ColorPaletteIndex = 16
+    object Series1: TLineSeries
+      Legend.Text = 'Heel'
+      LegendTitle = 'Heel'
+      SeriesColor = clMaroon
+      Brush.BackColor = clDefault
+      Pointer.InflateMargins = True
+      Pointer.Style = psRectangle
+      XValues.Name = 'X'
+      XValues.Order = loAscending
+      YValues.Name = 'Y'
+      YValues.Order = loNone
+    end
+    object Series2: TLineSeries
+      Legend.Text = 'Toe'
+      LegendTitle = 'Toe'
+      SeriesColor = clTeal
+      Brush.BackColor = clDefault
+      Pointer.InflateMargins = True
+      Pointer.Style = psRectangle
+      XValues.Name = 'X'
+      XValues.Order = loAscending
+      YValues.Name = 'Y'
+      YValues.Order = loNone
+    end
+  end
+  object ScrollBar1: TScrollBar
+    Left = 88
+    Top = 201
+    Width = 353
+    Height = 17
+    Max = 6500
+    Min = -6500
+    PageSize = 0
+    TabOrder = 1
+    OnChange = ScrollBar1Change
+  end
+  object Chart2: TChart
+    Left = 8
+    Top = 233
+    Width = 585
+    Height = 137
+    Legend.Visible = False
+    Title.Font.Color = clMaroon
+    Title.Text.Strings = (
+      'Cross Correlation Chart')
+    View3D = False
+    TabOrder = 2
+    DefaultCanvas = 'TGDIPlusCanvas'
+    ColorPaletteIndex = 13
+    object Series3: TLineSeries
+      SeriesColor = clMaroon
+      Brush.BackColor = clDefault
+      Pointer.InflateMargins = True
+      Pointer.Style = psRectangle
+      XValues.Name = 'X'
+      XValues.Order = loAscending
+      YValues.Name = 'Y'
+      YValues.Order = loNone
+    end
+  end
+  object Edit1: TEdit
+    Left = 472
+    Top = 197
+    Width = 121
+    Height = 21
+    TabOrder = 3
+  end
+  object ListBox1: TListBox
+    Left = 599
+    Top = 49
+    Width = 393
+    Height = 321
+    ItemHeight = 13
+    TabOrder = 4
+  end
+  object OpenDialog1: TOpenDialog
+    Left = 552
+    Top = 112
+  end
+end

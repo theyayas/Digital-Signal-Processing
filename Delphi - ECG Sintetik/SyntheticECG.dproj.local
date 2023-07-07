@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2020/11/17 14:41:45.000.040,=C:\Users\HP\OneDrive - Institut Teknologi Sepuluh Nopember\Dokumen\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2020/11/17 15:05:43.000.502,C:\Users\HP\OneDrive - Institut Teknologi Sepuluh Nopember\Dokumen\Embarcadero\Studio\Projects\Unit2.dfm=D:\ITS Yayas\Semester 7\Biomodeling\FP 1 - Synthetic ECG\Program 2\Unit2.dfm</Transaction>
+    <Transaction>2020/11/17 15:05:43.000.502,C:\Users\HP\OneDrive - Institut Teknologi Sepuluh Nopember\Dokumen\Embarcadero\Studio\Projects\Unit2.pas=D:\ITS Yayas\Semester 7\Biomodeling\FP 1 - Synthetic ECG\Program 2\Unit2.pas</Transaction>
+    <Transaction>2020/11/17 15:06:07.000.301,C:\Users\HP\OneDrive - Institut Teknologi Sepuluh Nopember\Dokumen\Embarcadero\Studio\Projects\Project2.dproj=D:\ITS Yayas\Semester 7\Biomodeling\FP 1 - Synthetic ECG\Program 2\SyntheticECG.dproj</Transaction>
+  </Transactions>
+</BorlandProject>

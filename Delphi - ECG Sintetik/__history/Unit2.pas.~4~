@@ -1,0 +1,248 @@
+unit Unit2;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, VclTee.TeeGDIPlus, Vcl.StdCtrls,
+  VCLTee.TeEngine, VCLTee.Series, Vcl.ExtCtrls, VCLTee.TeeProcs, VCLTee.Chart, math;
+
+type
+  myarray = array [0..10000] of extended;
+  TForm2 = class(TForm)
+    Button1: TButton;
+    Chart2: TChart;
+    Chart4: TChart;
+    Series3: TLineSeries;
+    Series5: TLineSeries;
+    Series6: TLineSeries;
+    Chart1: TChart;
+    Series1: TLineSeries;
+    Series2: TLineSeries;
+    GroupBox1: TGroupBox;
+    Edit1: TEdit;
+    Edit2: TEdit;
+    Edit3: TEdit;
+    Edit4: TEdit;
+    Edit5: TEdit;
+    Edit6: TEdit;
+    Edit7: TEdit;
+    Edit8: TEdit;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
+    Label8: TLabel;
+    Edit9: TEdit;
+    Edit10: TEdit;
+    Label9: TLabel;
+    Label10: TLabel;
+    Series4: TLineSeries;
+    Button2: TButton;
+    Button3: TButton;
+    Button4: TButton;
+    Label11: TLabel;
+    Chart3: TChart;
+    Series7: TLineSeries;
+    GroupBox2: TGroupBox;
+    Edit11: TEdit;
+    Edit12: TEdit;
+    Edit13: TEdit;
+    Edit14: TEdit;
+    Edit15: TEdit;
+    Edit16: TEdit;
+    Edit17: TEdit;
+    Edit18: TEdit;
+    Edit19: TEdit;
+    Edit20: TEdit;
+    Edit21: TEdit;
+    Edit22: TEdit;
+    Edit23: TEdit;
+    Edit24: TEdit;
+    Edit25: TEdit;
+    Label12: TLabel;
+    Label13: TLabel;
+    Label14: TLabel;
+    Label15: TLabel;
+    Label16: TLabel;
+    Label17: TLabel;
+    Label18: TLabel;
+    Label19: TLabel;
+    procedure Button1Click(Sender: TObject);
+    procedure IDFT(real : myarray; imaginer : myarray);
+    procedure Button2Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
+    procedure Button4Click(Sender: TObject);
+    procedure Parameter();
+    procedure TriDStatePhase(xdot, ydot, zdot : extended);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form2: TForm2;
+  N : integer;
+  fecg, fint, hmean, hstd, f1, f2, c1, c2, y : extended;
+  tetP, tetQ, tetR, tetS, tetT,
+  alphaP, alphaQ, alphaR, alphaS, alphaT,
+  betaP, betaQ, betaR, betaS, betaT : extended;
+  mayer, rsa, s, sbalik, mirror, sre, sim, InverseDFT, offset, omega : myarray;
+
+const
+  {N = 256;        //approximate number of heartbeat
+  fecg = 256;     //ECG sampling frequency (Hz)
+  fint = 512;     //Internal sampling frequency
+  A = 0.1;        //amplitude of additive uniform noise (mV)
+  hmean = 60;     //heart rate mean (bpm)
+  hstd = 1;       //heart rate standard deviation (bpm)
+  f1 = 2*pi*0.1;  //low frequency (Hz)
+  f2 = 2*pi*0.25; //high frwquency (Hz)
+  c1 = 0.1;       //low frequency standard deviation (Hz)
+  c2 = 0.1;       //high frequency standard deviation (Hz)
+  y = 0.5;        //LF/HF ratio    }
+  sigma1 = 0.5;
+  sigma2 = 1;
+
+implementation
+
+{$R *.dfm}
+
+procedure TForm2.Button1Click(Sender: TObject);
+var
+  i : integer;
+  iterasi : extended;
+begin
+  Parameter();
+
+  for i := 0 to N-1 do
+  begin
+    iterasi := 2*pi*i/fecg;  //karna fungsi bergerak dalam frekuensi, maka harus diubah ke frekuensi
+
+    mayer[i] := (sigma1 / sqrt(2*pi*sqr(c1))) * exp(-sqr((iterasi-f1)/c1)/2);
+    rsa[i] := (sigma2 / sqrt(2*pi*sqr(c2))) * exp(-sqr((iterasi-f2)/c2)/2);
+
+    s[i] := mayer[i] + rsa[i];
+    sbalik[i] := s[N-i];
+
+    mirror[i] := s[i] + sbalik[i];
+
+    series1.AddXY(i/N, s[i]/fecg);
+    series2.AddXY(i/N, mirror[i]/fecg);
+
+  end;
+end;
+
+procedure TForm2.Button2Click(Sender: TObject);
+var
+  I: Integer;
+begin
+  for I := 0 to N-1 do
+  begin
+    //mencari random phase
+    sre[i] := mirror[i]*cos(2*pi*random(10)/10);
+    sim[i] := mirror[i]*sin(2*pi*random(10)/10);
+    series3.AddXY(i, sre[i]);
+    series4.AddXY(i, sim[i]);
+  end;
+end;
+
+procedure TForm2.Button3Click(Sender: TObject);
+var
+  I : integer;
+begin
+  IDFT(sre, sim);
+
+  //penambahan random seed (offset) dan scaling
+  for I := 0 to N-1 do
+  begin
+    offset[i] := inverseDFT[i] + 60/hmean;
+
+    series6.AddXY(i, InverseDFT[i]);
+    series5.AddXY(i, offset[i]);
+  end;
+
+end;
+
+procedure TForm2.Button4Click(Sender: TObject);
+var
+  I: Integer;
+begin
+  // Mengkonvert RR Tachogram ke kecepatan angular
+  for I := 0 to N-1 do
+  begin
+    omega[i] := 2*pi/offset[i];
+    series7.AddXY(i, omega[i]);
+  end;
+end;
+
+procedure Tform2.IDFT(real, imaginer : myarray);
+var
+  i, j : integer;
+  Xreal, Ximaginer : myarray;
+begin
+  for i := 0 to N-1 do
+  begin
+    InverseDFT[i] := 0;
+    for j := 0 to N-1 do
+    begin
+      Xreal[i] := Xreal[i] + real[j]*cos(2*pi*i*j/N);
+      Ximaginer[i] := Ximaginer[i] + imaginer[j]*sin(2*pi*i*j/N);
+    end;
+    InverseDFT[i] := (Xreal[i] + Ximaginer[i])/N;
+  end;
+end;
+
+procedure Tform2.Parameter();
+begin
+  N := strtoint(edit1.Text);
+  fecg := strtofloat(edit2.Text);
+  fint := strtofloat(edit3.Text);
+  hmean := strtofloat(edit4.Text);
+  hstd := strtofloat(edit5.Text);
+  f1 := strtofloat(edit6.Text)*2*pi;
+  f2 := strtofloat(edit7.Text)*2*pi;
+  c1 := strtofloat(edit8.Text);
+  c2 := strtofloat(edit9.Text);
+  y := strtofloat(edit10.Text);
+
+  tetP := strtofloat(edit11.Text);
+  alphaP := strtofloat(edit12.Text);
+  betaP := strtofloat(edit13.Text);
+  tetQ := strtofloat(edit14.Text);
+  alphaQ := strtofloat(edit15.Text);
+  betaQ := strtofloat(edit16.Text);
+  tetR := strtofloat(edit17.Text);
+  alphaR := strtofloat(edit18.Text);
+  betaR := strtofloat(edit19.Text);
+  tetS := strtofloat(edit20.Text);
+  alphaS := strtofloat(edit21.Text);
+  betaS := strtofloat(edit22.Text);
+  tetT := strtofloat(edit23.Text);
+  alphaT := strtofloat(edit24.Text);
+  betaT := strtofloat(edit25.Text);
+end;
+
+procedure Tform2.TriDStatePhase(xdot, ydot, zdot : extended);
+const
+  x = 0.1;
+  y = 0.0;
+  z = 0.04;
+var
+  a, deltaTet, tet : extended;
+begin
+  a := 1 - sqrt(sqr(x) + sqr(y));
+  tet := 2*arctan(y/sqrt(sqr(x) + sqr(y)))+ x;
+  //deltaTet := tet -
+
+  xdot := a*x - omega[i]*y;
+  ydot := a*y + omega[i]*x;
+  zdot :=
+
+
+end;
+end.

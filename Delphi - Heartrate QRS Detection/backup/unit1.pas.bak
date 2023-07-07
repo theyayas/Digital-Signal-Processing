@@ -1,0 +1,271 @@
+unit Unit1;
+
+{$mode objfpc}{$H+}
+
+interface
+
+uses
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls,
+  TAGraph, TASeries;
+
+type
+
+  { TForm1 }
+
+  TForm1 = class(TForm)
+    Button1: TButton;
+    Button2: TButton;
+    Button3: TButton;
+    Button4: TButton;
+    Chart1: TChart;
+    Chart1LineSeries1: TLineSeries;
+    Chart2: TChart;
+    Chart2LineSeries1: TLineSeries;
+    Chart2LineSeries2: TLineSeries;
+    Chart3: TChart;
+    Chart3LineSeries1: TLineSeries;
+    Chart4: TChart;
+    Chart4LineSeries1: TLineSeries;
+    Chart5: TChart;
+    Chart5LineSeries1: TLineSeries;
+    Chart6: TChart;
+    Chart6BarSeries1: TBarSeries;
+    Chart7: TChart;
+    Chart7BarSeries1: TBarSeries;
+    Edit1: TEdit;
+    Edit2: TEdit;
+    Edit3: TEdit;
+    Edit4: TEdit;
+    GroupBox1: TGroupBox;
+    GroupBox2: TGroupBox;
+    GroupBox3: TGroupBox;
+    GroupBox4: TGroupBox;
+    GroupBox5: TGroupBox;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
+    Label8: TLabel;
+    ListBox1: TListBox;
+    ListBox2: TListBox;
+    OpenDialog1: TOpenDialog;
+    procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
+    procedure Button4Click(Sender: TObject);
+    procedure Edit1Change(Sender: TObject);
+    procedure Edit2Change(Sender: TObject);
+    procedure Edit3Change(Sender: TObject);
+    procedure Edit4Change(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure GroupBox1Click(Sender: TObject);
+    procedure ListBox1Click(Sender: TObject);
+    procedure ListBox2Click(Sender: TObject);
+  private
+
+  public
+
+  end;
+
+var
+  ecg : textfile;
+  N, i, j, fc1, fc2, x_y, fs: integer;
+  bpm, T, w1, w2, th, ymax : extended;
+  secg, LPF, HPF, dev, square, real, imaginer, DFT, peak, x: array[-1000..10000] of extended;
+  Form1: TForm1;
+
+
+implementation
+
+{$R *.lfm}
+
+{ TForm1 }
+
+
+procedure TForm1.Button1Click(Sender: TObject);
+begin
+  Chart1LineSeries1.Clear;
+  if opendialog1.Execute then
+  begin
+       i := 0;
+       assignfile(ecg,opendialog1.FileName);
+       reset(ecg);
+       while not EOF (ecg) do
+       begin
+            i := i + 1;
+            readln(ecg,N,Secg[N]);
+       end;
+  closefile(ecg);                      // mengambil sinyal
+  N := i;
+  end;
+  for j := 0 to N do
+  begin
+       Chart1LineSeries1.addxy(j,Secg[j]);
+  end;
+
+end;
+
+procedure TForm1.Button2Click(Sender: TObject);
+begin
+  Chart2LineSeries1.clear;
+  Chart3LineSeries1.clear;
+  Chart4LineSeries1.clear;
+  Chart5LineSeries1.clear;
+
+  Listbox1.Items.clear;
+  Listbox2.Items.clear;
+
+  fs := strtoint(Edit2.Text);
+  fc1 := strtoint(Edit3.Text);
+  fc2 := strtoint(Edit4.Text); // frekuensi sampling, frekuensi cut off 1 dan 2
+
+  T := 1/fs;
+  w1 := 2*pi*fc1;
+  w2 := 2*pi*fc2;              // periode, omega 1 dan 2
+
+  secg[-i] := secg[0];
+  lpf[-i] := lpf[0];
+  hpf[-i] := hpf[0];
+
+  for i := 0 to N-1 do
+  begin
+       {lpf[i]:= (2*lpf[i-1])-lpf[i-2]+ secg[i]-(2*secg[i-6])+ secg[i-12];
+       hpf[i] := 32*lpf[i - 16] - (hpf[i - 1] + lpf[i] - lpf[i - 32]);}  //BPF menggunakan metode Pan+Tompkins
+
+       lpf[i] := ((8/sqr(T) - 2*sqr(w1))*lpf[i-1] - (4/sqr(T) - (2*sqrt(2)*w1)/T + sqr(w1))*lpf[i-2] + sqr(w1)*secg[i] + 2*sqr(w1)*secg[i-1] + sqr(w1)*secg[i-2])/(4/sqr(T) + (2*sqrt(2)*w1)/T + sqr(w1));
+       hpf[i] := ((8/sqr(T) - 2*sqr(w2))*hpf[i-1] - (4/sqr(T) - 2*sqrt(2)*w2/T + sqr(w2))*hpf[i-2] + 4/sqr(T)*lpf[i] - 8/sqr(T)*lpf[i-1] + 4/sqr(T)*lpf[i-2])/(4/sqr(T) + 2*sqrt(2)*w2/T + sqr(w2));       //Band Pass Filter
+
+       Chart2LineSeries1.addxy(i,hpf[i]);
+  end;
+
+  for i := 0 to N-1 do
+  begin
+       dev[i] := (1/8)*(-hpf[i - 2] - 2*hpf[i - 1] + 2*hpf[i + 1] + hpf[i + 2]);
+       square[i] := sqr(dev[i]);              // derivatif dan kuadrat
+
+       Chart3LineSeries1.addxy(i,dev[i]);
+       Chart4LineSeries1.addxy(i,square[i]);
+  end;
+
+  for i := 0 to N-1 do
+  begin
+       lpf[i] := ((8/sqr(T) - 2*sqr(w1))*lpf[i-1] - (4/sqr(T) - (2*sqrt(2)*w1)/T + sqr(w1))*lpf[i-2] + sqr(w1)*square[i] + 2*sqr(w1)*square[i-1] + sqr(w1)*square[i-2])/(4/sqr(T) + (2*sqrt(2)*w1)/T + sqr(w1)); // lpf untuk menjadikan 1 puncak
+       Chart5LineSeries1.addxy(i,lpf[i]);
+  end;
+
+  ymax := 0;
+  x_y := 0;
+  for i := 0 to N-1 do
+  begin
+    if ymax < lpf[i] then
+    begin
+      ymax := lpf[i];    //mencari titik tertinggi dari semua peak
+      x_y := i;          //menentukan lokasi titik tertinggi dari semua peak
+    end;
+  end;
+
+  th := ymax*sqrt(2)/2;  //penentuan treshold
+
+  j := 0;
+  for i := 0 to N-1 do
+  begin
+       if lpf[i] > th then
+       begin
+            if (lpf[i] > lpf[i-1]) and (lpf[i] > lpf[i+1]) then
+            begin
+                 peak[i] := lpf[i];
+                 x[j] := i;
+                 bpm := round(60*fs/(x[j] - x[j-1]));         // rumus mencari heart rate
+                 Listbox1.Items.add(floattostr(peak[i]));
+                 Listbox2.Items.add(floattostr(x[j]));
+                 Edit1.text := floattostr(bpm);
+                 j := j + 1;
+            end;
+       end;
+  end;
+end;
+
+procedure TForm1.Button3Click(Sender: TObject);
+begin
+  Chart6BarSeries1.Clear;
+
+  fs := strtoint(Edit2.Text);
+  for i := 0 to N-1 do
+  begin
+    Real[i] :=0;
+    Imaginer[i] :=0;
+    for j := 0 to N-1 do
+    begin
+         Real[i] := Real[i] + Secg[j]*cos(2*pi*i*j/N);
+         Imaginer[i] := Imaginer[i] - Secg[j]*sin(2*pi*i*j/N);
+    end;
+    DFT[i] := sqrt(sqr(Real[i]) + sqr(Imaginer[i]))/N;
+    Chart6BarSeries1.AddXY(i*fs/(N),DFT[i]);
+  end;
+end;
+
+procedure TForm1.Button4Click(Sender: TObject);
+begin
+  Chart7BarSeries1.Clear;
+
+  fs := strtoint(Edit2.Text);
+  for i := 0 to N-1 do
+  begin
+    Real[i] :=0;
+    Imaginer[i] :=0;
+    for j := 0 to N-1 do
+    begin
+         Real[i] := Real[i] + hpf[j]*cos(2*pi*i*j/N);
+         Imaginer[i] := Imaginer[i] - hpf[j]*sin(2*pi*i*j/N);
+    end;
+    DFT[i] := sqrt(sqr(Real[i]) + sqr(Imaginer[i]))/N;
+    Chart7BarSeries1.AddXY(i*fs/(N),DFT[i]);
+  end;
+
+end;
+
+procedure TForm1.Edit1Change(Sender: TObject);
+begin
+
+end;
+
+procedure TForm1.Edit2Change(Sender: TObject);
+begin
+
+end;
+
+procedure TForm1.Edit3Change(Sender: TObject);
+begin
+
+end;
+
+procedure TForm1.Edit4Change(Sender: TObject);
+begin
+
+end;
+
+procedure TForm1.FormCreate(Sender: TObject);
+begin
+
+end;
+
+procedure TForm1.GroupBox1Click(Sender: TObject);
+begin
+
+end;
+
+procedure TForm1.ListBox1Click(Sender: TObject);
+begin
+
+end;
+
+procedure TForm1.ListBox2Click(Sender: TObject);
+begin
+
+end;
+
+end.
+

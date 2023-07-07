@@ -1,0 +1,641 @@
+object Form1: TForm1
+  Left = -6
+  Height = 693
+  Top = 1
+  Width = 1362
+  Caption = 'Heart Rate by Yasin'
+  ClientHeight = 693
+  ClientWidth = 1362
+  LCLVersion = '2.0.4.0'
+  object Label1: TLabel
+    Left = 528
+    Height = 42
+    Top = 0
+    Width = 209
+    Caption = 'Heart Rate'
+    Font.CharSet = ANSI_CHARSET
+    Font.Color = clMaroon
+    Font.Height = -32
+    Font.Name = 'Snap ITC'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    ParentColor = False
+    ParentFont = False
+  end
+  object GroupBox2: TGroupBox
+    Left = 16
+    Height = 296
+    Top = 376
+    Width = 624
+    Caption = 'Fourier Transformation'
+    ClientHeight = 276
+    ClientWidth = 620
+    TabOrder = 0
+    object Chart7: TChart
+      Left = 16
+      Height = 145
+      Top = 127
+      Width = 592
+      AxisList = <      
+        item
+          Marks.LabelBrush.Style = bsClear
+          Minors = <>
+          Title.LabelFont.Orientation = 900
+          Title.Visible = True
+          Title.Caption = 'Amplitude'
+          Title.LabelBrush.Style = bsClear
+        end      
+        item
+          Alignment = calBottom
+          Marks.LabelBrush.Style = bsClear
+          Minors = <>
+          Title.Visible = True
+          Title.Caption = 'Frequency (Hz)'
+          Title.LabelBrush.Style = bsClear
+        end>
+      Foot.Brush.Color = clBtnFace
+      Foot.Font.Color = clBlue
+      Title.Alignment = taLeftJustify
+      Title.Brush.Color = clBtnFace
+      Title.Font.Color = clBlue
+      Title.Text.Strings = (
+        '          DFT After BPF (QRS Complex Spectrum)'
+      )
+      Title.Visible = True
+      object Chart7LineSeries1: TLineSeries
+        LinePen.Color = clMaroon
+      end
+    end
+    object Chart6: TChart
+      Left = 16
+      Height = 125
+      Top = 0
+      Width = 592
+      AxisList = <      
+        item
+          Marks.LabelBrush.Style = bsClear
+          Minors = <>
+          Title.LabelFont.Orientation = 900
+          Title.Visible = True
+          Title.Caption = 'Amplitude'
+          Title.LabelBrush.Style = bsClear
+        end      
+        item
+          Alignment = calBottom
+          Marks.LabelBrush.Style = bsClear
+          Minors = <>
+          Title.Caption = 'Frequency (Hz)'
+          Title.LabelBrush.Style = bsClear
+        end>
+      Foot.Brush.Color = clBtnFace
+      Foot.Font.Color = clBlue
+      Legend.Visible = True
+      Title.Alignment = taLeftJustify
+      Title.Brush.Color = clBtnFace
+      Title.Font.Color = clBlue
+      Title.Text.Strings = (
+        '          DFT Before BPF'
+      )
+      Title.Visible = True
+      object Chart6LineSeries1: TLineSeries
+        Title = 'P Wave'
+        LinePen.Color = clLime
+      end
+      object Chart6LineSeries2: TLineSeries
+        Title = 'QRS Complex'
+        LinePen.Color = clRed
+      end
+      object Chart6LineSeries3: TLineSeries
+        Title = 'T Wave'
+        LinePen.Color = clFuchsia
+      end
+    end
+  end
+  object GroupBox3: TGroupBox
+    Left = 16
+    Height = 200
+    Top = 56
+    Width = 624
+    Caption = 'ECG Signal'
+    ClientHeight = 180
+    ClientWidth = 620
+    TabOrder = 1
+    object Chart1: TChart
+      Left = 16
+      Height = 174
+      Top = -1
+      Width = 592
+      AxisList = <      
+        item
+          Marks.LabelBrush.Style = bsClear
+          Minors = <>
+          Title.LabelFont.Orientation = 900
+          Title.Visible = True
+          Title.Caption = 'Amplitude (mV)'
+          Title.LabelBrush.Style = bsClear
+        end      
+        item
+          Alignment = calBottom
+          Marks.LabelBrush.Style = bsClear
+          Minors = <>
+          Title.Visible = True
+          Title.Caption = 'Sequence (n)'
+          Title.LabelBrush.Style = bsClear
+        end>
+      Foot.Brush.Color = clBtnFace
+      Foot.Font.Color = clBlue
+      Legend.Visible = True
+      Title.Alignment = taLeftJustify
+      Title.Brush.Color = clBtnFace
+      Title.Font.Color = clBlue
+      Title.Text.Strings = (
+        '          ECG Signal'
+      )
+      Title.Visible = True
+      object Chart1LineSeries1: TLineSeries
+        Title = 'ECG Signal'
+      end
+      object Chart1LineSeries2: TLineSeries
+        Title = 'P Wave'
+        LinePen.Color = clLime
+      end
+      object Chart1LineSeries3: TLineSeries
+        Legend.Visible = False
+        LinePen.Color = clTeal
+      end
+      object Chart1LineSeries4: TLineSeries
+        Legend.Visible = False
+        LinePen.Color = clTeal
+      end
+      object Chart1LineSeries5: TLineSeries
+        Legend.Visible = False
+        LinePen.Color = clTeal
+      end
+      object Chart1LineSeries6: TLineSeries
+        Title = 'QRS Complex'
+        LinePen.Color = clRed
+      end
+      object Chart1LineSeries7: TLineSeries
+        Legend.Visible = False
+        LinePen.Color = clTeal
+      end
+      object Chart1LineSeries8: TLineSeries
+        Legend.Visible = False
+        LinePen.Color = clTeal
+      end
+      object Chart1LineSeries9: TLineSeries
+        Title = 'T wave'
+        LinePen.Color = clFuchsia
+      end
+      object Chart1LineSeries10: TLineSeries
+        Legend.Visible = False
+        LinePen.Color = clTeal
+      end
+    end
+  end
+  object GroupBox4: TGroupBox
+    Left = 1204
+    Height = 208
+    Top = 56
+    Width = 145
+    Caption = 'Operation'
+    ClientHeight = 188
+    ClientWidth = 141
+    TabOrder = 2
+    object Button1: TButton
+      Left = 10
+      Height = 32
+      Top = 8
+      Width = 106
+      Caption = 'Data Input'
+      OnClick = Button1Click
+      TabOrder = 0
+    end
+    object Button2: TButton
+      Left = 10
+      Height = 32
+      Top = 144
+      Width = 106
+      Caption = 'Operate'
+      OnClick = Button2Click
+      TabOrder = 1
+    end
+    object Edit3: TEdit
+      Left = 10
+      Height = 23
+      Top = 112
+      Width = 80
+      TabOrder = 2
+      Text = '11'
+    end
+    object Edit4: TEdit
+      Left = 12
+      Height = 23
+      Top = 64
+      Width = 80
+      TabOrder = 3
+      Text = '5'
+    end
+    object Label3: TLabel
+      Left = 10
+      Height = 15
+      Top = 96
+      Width = 119
+      Caption = 'LPF Cut Off Frequency'
+      ParentColor = False
+    end
+    object Label4: TLabel
+      Left = 10
+      Height = 15
+      Top = 48
+      Width = 122
+      Caption = 'HPF Cut Off Frequency'
+      ParentColor = False
+    end
+  end
+  object GroupBox5: TGroupBox
+    Left = 1203
+    Height = 288
+    Top = 384
+    Width = 145
+    Caption = 'R-R Detection'
+    ClientHeight = 268
+    ClientWidth = 141
+    TabOrder = 3
+    object ListBox1: TListBox
+      Left = 8
+      Height = 80
+      Top = 16
+      Width = 96
+      ItemHeight = 0
+      TabOrder = 0
+    end
+    object ListBox2: TListBox
+      Left = 8
+      Height = 79
+      Top = 119
+      Width = 96
+      ItemHeight = 0
+      TabOrder = 1
+    end
+    object Edit1: TEdit
+      Left = 8
+      Height = 23
+      Top = 224
+      Width = 95
+      TabOrder = 2
+      Text = ' '
+    end
+    object Label5: TLabel
+      Left = 8
+      Height = 15
+      Top = 0
+      Width = 30
+      Caption = 'Peaks'
+      ParentColor = False
+    end
+    object Label6: TLabel
+      Left = 7
+      Height = 15
+      Top = 103
+      Width = 79
+      Caption = 'Peak Locations'
+      ParentColor = False
+    end
+    object Label7: TLabel
+      Left = 10
+      Height = 15
+      Top = 208
+      Width = 55
+      Caption = 'Heart Rate'
+      ParentColor = False
+    end
+    object Label8: TLabel
+      Left = 112
+      Height = 15
+      Top = 232
+      Width = 25
+      Caption = 'BPM'
+      ParentColor = False
+    end
+  end
+  object ScrollBar1: TScrollBar
+    Left = 160
+    Height = 17
+    Top = 288
+    Width = 177
+    PageSize = 0
+    TabOrder = 4
+    OnChange = ScrollBar1Change
+  end
+  object ScrollBar2: TScrollBar
+    Left = 352
+    Height = 17
+    Top = 288
+    Width = 178
+    PageSize = 0
+    TabOrder = 5
+    OnChange = ScrollBar2Change
+  end
+  object Label9: TLabel
+    Left = 160
+    Height = 15
+    Top = 264
+    Width = 133
+    Caption = 'Minimum Henning Value'
+    ParentColor = False
+  end
+  object Label10: TLabel
+    Left = 352
+    Height = 15
+    Top = 264
+    Width = 135
+    Caption = 'Maximum Henning Value'
+    ParentColor = False
+  end
+  object GroupBox6: TGroupBox
+    Left = 1204
+    Height = 120
+    Top = 264
+    Width = 144
+    Caption = 'ECG Information'
+    ClientHeight = 100
+    ClientWidth = 140
+    TabOrder = 6
+    object Label2: TLabel
+      Left = 11
+      Height = 15
+      Top = 56
+      Width = 108
+      Caption = 'Sampling Frequency'
+      ParentColor = False
+    end
+    object Edit2: TEdit
+      Left = 11
+      Height = 23
+      Top = 72
+      Width = 80
+      TabOrder = 0
+      Text = ' '
+    end
+    object Edit5: TEdit
+      Left = 11
+      Height = 23
+      Top = 21
+      Width = 80
+      TabOrder = 1
+      Text = ' '
+    end
+    object Label11: TLabel
+      Left = 11
+      Height = 15
+      Top = 3
+      Width = 51
+      Caption = 'Data Sum'
+      ParentColor = False
+    end
+  end
+  object GroupBox1: TGroupBox
+    Left = 648
+    Height = 616
+    Top = 56
+    Width = 544
+    Caption = 'Signal Processing'
+    ClientHeight = 596
+    ClientWidth = 540
+    TabOrder = 7
+    object Chart5: TChart
+      Left = 16
+      Height = 160
+      Top = 431
+      Width = 512
+      AxisList = <      
+        item
+          Marks.LabelBrush.Style = bsClear
+          Minors = <>
+          Title.LabelFont.Orientation = 900
+          Title.Visible = True
+          Title.Caption = 'Amplitude'
+          Title.LabelBrush.Style = bsClear
+        end      
+        item
+          Alignment = calBottom
+          Marks.LabelBrush.Style = bsClear
+          Minors = <>
+          Title.Visible = True
+          Title.Caption = 'Sequence (n)'
+          Title.LabelBrush.Style = bsClear
+        end>
+      Foot.Brush.Color = clBtnFace
+      Foot.Font.Color = clBlue
+      Title.Alignment = taLeftJustify
+      Title.Brush.Color = clBtnFace
+      Title.Font.Color = clBlue
+      Title.Text.Strings = (
+        '          Low Pass Filter'
+      )
+      Title.Visible = True
+      object Chart5LineSeries1: TLineSeries
+      end
+    end
+    object Chart4: TChart
+      Left = 16
+      Height = 144
+      Top = 288
+      Width = 509
+      AxisList = <      
+        item
+          Marks.LabelBrush.Style = bsClear
+          Minors = <>
+          Title.LabelFont.Orientation = 900
+          Title.Visible = True
+          Title.Caption = 'Amplitude'
+          Title.LabelBrush.Style = bsClear
+        end      
+        item
+          Alignment = calBottom
+          Marks.LabelBrush.Style = bsClear
+          Minors = <>
+          Title.Caption = 'Sequence (n)'
+          Title.LabelBrush.Style = bsClear
+        end>
+      Foot.Brush.Color = clBtnFace
+      Foot.Font.Color = clBlue
+      Title.Alignment = taLeftJustify
+      Title.Brush.Color = clBtnFace
+      Title.Font.Color = clBlue
+      Title.Text.Strings = (
+        '          Squaring'
+      )
+      Title.Visible = True
+      object Chart4LineSeries1: TLineSeries
+      end
+      object Chart4LineSeries2: TLineSeries
+        LinePen.Color = clMaroon
+      end
+      object Chart4LineSeries3: TLineSeries
+        LinePen.Color = clTeal
+      end
+      object Chart4LineSeries4: TLineSeries
+        LinePen.Color = clTeal
+      end
+    end
+    object Chart3: TChart
+      Left = 16
+      Height = 144
+      Top = 143
+      Width = 512
+      AxisList = <      
+        item
+          Marks.LabelBrush.Style = bsClear
+          Minors = <>
+          Title.LabelFont.Orientation = 900
+          Title.Visible = True
+          Title.Caption = 'Amplitude'
+          Title.LabelBrush.Style = bsClear
+        end      
+        item
+          Alignment = calBottom
+          Marks.LabelBrush.Style = bsClear
+          Minors = <>
+          Title.Caption = 'Sequence (n)'
+          Title.LabelBrush.Style = bsClear
+        end>
+      Foot.Brush.Color = clBtnFace
+      Foot.Font.Color = clBlue
+      Title.Alignment = taLeftJustify
+      Title.Brush.Color = clBtnFace
+      Title.Font.Color = clBlue
+      Title.Text.Strings = (
+        '          Derivative'
+      )
+      Title.Visible = True
+      object Chart3LineSeries1: TLineSeries
+      end
+    end
+    object Chart2: TChart
+      Left = 16
+      Height = 144
+      Top = 0
+      Width = 512
+      AxisList = <      
+        item
+          Marks.LabelBrush.Style = bsClear
+          Minors = <>
+          Title.LabelFont.Orientation = 900
+          Title.Visible = True
+          Title.Caption = 'Amplitude (mV)'
+          Title.LabelBrush.Style = bsClear
+        end      
+        item
+          Alignment = calBottom
+          Marks.LabelBrush.Style = bsClear
+          Minors = <>
+          Title.Caption = 'Sequence (n)'
+          Title.LabelBrush.Style = bsClear
+        end>
+      Foot.Brush.Color = clBtnFace
+      Foot.Font.Color = clBlue
+      Title.Alignment = taLeftJustify
+      Title.Brush.Color = clBtnFace
+      Title.Font.Color = clBlue
+      Title.Text.Strings = (
+        '          Band Pass Filter (LPF + HPF)'
+      )
+      Title.Visible = True
+      object Chart2LineSeries1: TLineSeries
+      end
+    end
+  end
+  object Label12: TLabel
+    Left = 56
+    Height = 15
+    Top = 288
+    Width = 39
+    Caption = 'P Wave'
+    ParentColor = False
+  end
+  object Label13: TLabel
+    Left = 56
+    Height = 15
+    Top = 316
+    Width = 73
+    Caption = 'QRS Complex'
+    ParentColor = False
+  end
+  object Label14: TLabel
+    Left = 56
+    Height = 15
+    Top = 344
+    Width = 38
+    Caption = 'T Wave'
+    ParentColor = False
+  end
+  object Button3: TButton
+    Left = 552
+    Height = 25
+    Top = 288
+    Width = 88
+    Caption = 'P Wave'
+    OnClick = Button3Click
+    TabOrder = 8
+  end
+  object ScrollBar3: TScrollBar
+    Left = 160
+    Height = 17
+    Top = 316
+    Width = 177
+    PageSize = 0
+    TabOrder = 9
+    OnChange = ScrollBar3Change
+  end
+  object ScrollBar4: TScrollBar
+    Left = 352
+    Height = 17
+    Top = 316
+    Width = 178
+    PageSize = 0
+    TabOrder = 10
+    OnChange = ScrollBar4Change
+  end
+  object ScrollBar5: TScrollBar
+    Left = 160
+    Height = 17
+    Top = 344
+    Width = 177
+    PageSize = 0
+    TabOrder = 11
+    OnChange = ScrollBar5Change
+  end
+  object ScrollBar6: TScrollBar
+    Left = 352
+    Height = 17
+    Top = 344
+    Width = 179
+    PageSize = 0
+    TabOrder = 12
+    OnChange = ScrollBar6Change
+  end
+  object Button4: TButton
+    Left = 552
+    Height = 25
+    Top = 316
+    Width = 88
+    Caption = 'QRS Complex'
+    OnClick = Button4Click
+    TabOrder = 13
+  end
+  object Button5: TButton
+    Left = 552
+    Height = 25
+    Top = 344
+    Width = 88
+    Caption = 'T Wave'
+    OnClick = Button5Click
+    TabOrder = 14
+  end
+  object OpenDialog1: TOpenDialog
+    left = 1216
+    top = 88
+  end
+end

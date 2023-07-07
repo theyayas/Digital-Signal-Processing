@@ -1,0 +1,100 @@
+unit Unit2;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, VclTee.TeeGDIPlus, VCLTee.TeEngine,
+  VCLTee.Series, Vcl.StdCtrls, Vcl.ExtCtrls, VCLTee.TeeProcs, VCLTee.Chart;
+
+type
+  TForm2 = class(TForm)
+    Chart1: TChart;
+    Series1: TLineSeries;
+    Series2: TLineSeries;
+    OpenDialog1: TOpenDialog;
+    ScrollBar1: TScrollBar;
+    Chart2: TChart;
+    Series3: TLineSeries;
+    Edit1: TEdit;
+    ListBox1: TListBox;
+    Label1: TLabel;
+    procedure FormCreate(Sender: TObject);
+    procedure ScrollBar1Change(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form2: TForm2;
+  N : integer;
+  Heel, Toe, Crosscor : array[0..10000] of extended;
+
+implementation
+
+{$R *.dfm}
+
+procedure TForm2.FormCreate(Sender: TObject);
+var
+  Gait : textfile;
+  i, j: integer;
+begin
+  Series1.Clear;
+  opendialog1.Execute();
+
+  i := 0;
+  assignfile(gait,opendialog1.FileName);
+  reset(gait);
+  while not EOF (gait) do
+  begin
+    i := i + 1;
+    readln(gait, heel[i], toe[i]);
+    Series1.addxy(i, heel[i]);
+    Series2.addxy(i, toe[i]);
+
+
+    //listbox1.items.Add('toe[x] = ' + floattostr(toe[i]));
+  end;
+  closefile(gait);
+  N := i;
+
+  for I := 0 to N do
+  begin
+    crosscor[i] := 0;
+    for j := 0 to N-1-i do
+    begin
+      crosscor[i] := crosscor[i] + (heel[j]*toe[i+j])/N;
+    end;
+    Series3.addxy(i, crosscor[i]);
+
+    listbox1.items.Add('heel[' + inttostr(i) + '] = ' + floattostr(heel[i]) + '   '+ 'toe[x] = ' + floattostr(toe[i]) + '   '+ 'crosscor[x] = ' + floattostr(crosscor[i]));
+  end;
+end;
+
+procedure TForm2.ScrollBar1Change(Sender: TObject);
+var
+  a, i, j : integer;
+begin
+  series2.Clear;
+  series3.Clear;
+
+  a := scrollbar1.Position;
+  edit1.Text := inttostr(a);
+  for I := 0 to N do
+  begin
+    crosscor[i] := 0;
+    for j := 0 to N-1-i do
+    begin
+      crosscor[i] := crosscor[i] + (heel[j]*toe[i - a + j])/N;
+    end;
+
+    Series2.addxy(i,toe[i - a]);
+    Series3.addxy(i, crosscor[i]);
+  end;
+
+
+end;
+
+end.

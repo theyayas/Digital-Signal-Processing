@@ -1,0 +1,111 @@
+object Form2: TForm2
+  Left = 270
+  Top = 74
+  Caption = 'Form2'
+  ClientHeight = 419
+  ClientWidth = 768
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poDesigned
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Chart1: TChart
+    Left = 8
+    Top = 40
+    Width = 617
+    Height = 137
+    Title.Text.Strings = (
+      'TChart')
+    LeftAxis.Automatic = False
+    LeftAxis.AutomaticMaximum = False
+    LeftAxis.AutomaticMinimum = False
+    LeftAxis.Maximum = 2.500000000000000000
+    View3D = False
+    TabOrder = 0
+    DefaultCanvas = 'TGDIPlusCanvas'
+    ColorPaletteIndex = 16
+    object Series1: TLineSeries
+      Legend.Text = 'Heel'
+      LegendTitle = 'Heel'
+      SeriesColor = clRed
+      Brush.BackColor = clDefault
+      Pointer.InflateMargins = True
+      Pointer.Style = psRectangle
+      XValues.Name = 'X'
+      XValues.Order = loAscending
+      YValues.Name = 'Y'
+      YValues.Order = loNone
+    end
+    object Series2: TLineSeries
+      Legend.Text = 'Toe'
+      LegendTitle = 'Toe'
+      SeriesColor = clBlue
+      Brush.BackColor = clDefault
+      Pointer.InflateMargins = True
+      Pointer.Style = psRectangle
+      XValues.Name = 'X'
+      XValues.Order = loAscending
+      YValues.Name = 'Y'
+      YValues.Order = loNone
+    end
+  end
+  object Button1: TButton
+    Left = 624
+    Top = 304
+    Width = 75
+    Height = 25
+    Caption = 'Button1'
+    TabOrder = 1
+  end
+  object ScrollBar1: TScrollBar
+    Left = 128
+    Top = 183
+    Width = 353
+    Height = 17
+    Max = 6500
+    Min = -6500
+    PageSize = 0
+    TabOrder = 2
+    OnChange = ScrollBar1Change
+  end
+  object Chart2: TChart
+    Left = 8
+    Top = 240
+    Width = 617
+    Height = 137
+    Legend.Visible = False
+    Title.Text.Strings = (
+      'TChart')
+    View3D = False
+    TabOrder = 3
+    DefaultCanvas = 'TGDIPlusCanvas'
+    ColorPaletteIndex = 13
+    object Series3: TLineSeries
+      SeriesColor = clRed
+      Brush.BackColor = clDefault
+      Pointer.InflateMargins = True
+      Pointer.Style = psRectangle
+      XValues.Name = 'X'
+      XValues.Order = loAscending
+      YValues.Name = 'Y'
+      YValues.Order = loNone
+    end
+  end
+  object Edit1: TEdit
+    Left = 487
+    Top = 183
+    Width = 121
+    Height = 21
+    TabOrder = 4
+  end
+  object OpenDialog1: TOpenDialog
+    Left = 552
+    Top = 96
+  end
+end

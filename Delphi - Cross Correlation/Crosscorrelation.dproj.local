@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2020/11/07 14:46:56.000.217,=C:\Users\HP\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2020/11/07 15:14:48.000.269,D:\ITS Yayas\Semester 7\Biomodeling\Tugas 3 - Autocorrelation\Autocorrelation\Unit2.dfm=C:\Users\HP\Documents\Embarcadero\Studio\Projects\Unit2.dfm</Transaction>
+    <Transaction>2020/11/07 15:14:48.000.269,D:\ITS Yayas\Semester 7\Biomodeling\Tugas 3 - Autocorrelation\Autocorrelation\Unit2.pas=C:\Users\HP\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2020/11/07 15:15:04.000.748,D:\ITS Yayas\Semester 7\Biomodeling\Tugas 3 - Autocorrelation\Autocorrelation\Crosscorrelation.dproj=C:\Users\HP\Documents\Embarcadero\Studio\Projects\Project2.dproj</Transaction>
+  </Transactions>
+</BorlandProject>
