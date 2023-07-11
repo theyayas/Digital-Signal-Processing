@@ -1,0 +1,210 @@
+object Form1: TForm1
+  Left = 395
+  Height = 683
+  Top = 7
+  Width = 968
+  Caption = 'Form1'
+  ClientHeight = 683
+  ClientWidth = 968
+  OnCreate = FormCreate
+  LCLVersion = '2.0.4.0'
+  object Edit1: TEdit
+    Left = 72
+    Height = 23
+    Top = 80
+    Width = 80
+    TabOrder = 0
+  end
+  object Label1: TLabel
+    Left = 72
+    Height = 15
+    Top = 48
+    Width = 57
+    Caption = 'Amplitudo'
+    ParentColor = False
+    OnClick = Label1Click
+  end
+  object Label2: TLabel
+    Left = 224
+    Height = 15
+    Top = 48
+    Width = 50
+    Caption = 'Frekuensi'
+    ParentColor = False
+    OnClick = Label1Click
+  end
+  object Chart1: TChart
+    Left = 464
+    Height = 208
+    Top = 80
+    Width = 424
+    AxisList = <    
+      item
+        Marks.LabelBrush.Style = bsClear
+        Minors = <>
+        Title.LabelFont.Orientation = 900
+        Title.LabelBrush.Style = bsClear
+      end    
+      item
+        Alignment = calBottom
+        Marks.LabelBrush.Style = bsClear
+        Minors = <>
+        Title.LabelBrush.Style = bsClear
+      end>
+    Foot.Brush.Color = clBtnFace
+    Foot.Font.Color = clBlue
+    Title.Brush.Color = clBtnFace
+    Title.Font.Color = clBlue
+    Title.Text.Strings = (
+      'TAChart'
+    )
+    object Chart1LineSeries1: TLineSeries
+    end
+  end
+  object Button1: TButton
+    Left = 360
+    Height = 25
+    Top = 80
+    Width = 75
+    Caption = 'Masukkan'
+    OnClick = Button1Click
+    TabOrder = 2
+  end
+  object Edit2: TEdit
+    Left = 72
+    Height = 23
+    Top = 120
+    Width = 80
+    TabOrder = 3
+  end
+  object Edit3: TEdit
+    Left = 72
+    Height = 23
+    Top = 168
+    Width = 80
+    TabOrder = 4
+  end
+  object Edit4: TEdit
+    Left = 224
+    Height = 23
+    Top = 80
+    Width = 80
+    TabOrder = 5
+  end
+  object Edit5: TEdit
+    Left = 224
+    Height = 23
+    Top = 124
+    Width = 80
+    TabOrder = 6
+  end
+  object Edit6: TEdit
+    Left = 224
+    Height = 23
+    Top = 168
+    Width = 80
+    TabOrder = 7
+  end
+  object Edit7: TEdit
+    Left = 72
+    Height = 23
+    Top = 248
+    Width = 80
+    TabOrder = 8
+  end
+  object Label3: TLabel
+    Left = 72
+    Height = 15
+    Top = 224
+    Width = 65
+    Caption = 'Jumlah Data'
+    ParentColor = False
+  end
+  object Edit8: TEdit
+    Left = 224
+    Height = 23
+    Top = 248
+    Width = 80
+    TabOrder = 9
+  end
+  object Label4: TLabel
+    Left = 224
+    Height = 15
+    Top = 224
+    Width = 103
+    Caption = 'Frekuensi Sampling'
+    ParentColor = False
+  end
+  object Button2: TButton
+    Left = 24
+    Height = 25
+    Top = 336
+    Width = 75
+    Caption = 'DFT'
+    OnClick = Button2Click
+    TabOrder = 10
+  end
+  object Button3: TButton
+    Left = 520
+    Height = 25
+    Top = 336
+    Width = 75
+    Caption = 'IDFT'
+    OnClick = Button3Click
+    TabOrder = 11
+  end
+  object Chart2: TChart
+    Left = 24
+    Height = 234
+    Top = 376
+    Width = 428
+    AxisList = <    
+      item
+        Marks.LabelBrush.Style = bsClear
+        Minors = <>
+        Title.LabelFont.Orientation = 900
+        Title.LabelBrush.Style = bsClear
+      end    
+      item
+        Alignment = calBottom
+        Marks.LabelBrush.Style = bsClear
+        Minors = <>
+        Title.LabelBrush.Style = bsClear
+      end>
+    Foot.Brush.Color = clBtnFace
+    Foot.Font.Color = clBlue
+    Title.Brush.Color = clBtnFace
+    Title.Font.Color = clBlue
+    Title.Text.Strings = (
+      'TAChart'
+    )
+    object Chart2LineSeries1: TLineSeries
+    end
+  end
+  object Chart3: TChart
+    Left = 520
+    Height = 234
+    Top = 376
+    Width = 436
+    AxisList = <    
+      item
+        Marks.LabelBrush.Style = bsClear
+        Minors = <>
+        Title.LabelFont.Orientation = 900
+        Title.LabelBrush.Style = bsClear
+      end    
+      item
+        Alignment = calBottom
+        Marks.LabelBrush.Style = bsClear
+        Minors = <>
+        Title.LabelBrush.Style = bsClear
+      end>
+    Foot.Brush.Color = clBtnFace
+    Foot.Font.Color = clBlue
+    Title.Brush.Color = clBtnFace
+    Title.Font.Color = clBlue
+    Title.Text.Strings = (
+      'TAChart'
+    )
+  end
+end
